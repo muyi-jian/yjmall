@@ -1,0 +1,27 @@
+server:
+  port: 11000
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.56.10:3306/yjmall_pms?useUnicode=true&useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.56.10:8848
+        username: nacos
+        password: nacos
+  application:
+    name: yjmall-product
+
+
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: auto
+
+
+

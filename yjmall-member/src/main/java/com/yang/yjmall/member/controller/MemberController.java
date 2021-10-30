@@ -2,8 +2,10 @@ package com.yang.yjmall.member.controller;
 
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Objects;
 
 
+import com.yang.yjmall.member.feign.CouponFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,6 +32,17 @@ import com.yang.common.utils.R;
 public class MemberController {
     @Autowired
     private MemberService memberService;
+
+    @Autowired
+    CouponFeignService couponFeignService;
+
+    @RequestMapping("/coupons")
+    public R test(){
+        MemberEntity member = new MemberEntity();
+        member.setNickname("张三");
+        R membercoupon = couponFeignService.membercoupon();
+        return Objects.requireNonNull(R.ok().put("member", member)).put("coupons",membercoupon.get("coupons"));
+    }
 
     /**
      * 列表
