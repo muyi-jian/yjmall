@@ -3,9 +3,12 @@ package com.yang.yjmall.coupon.controller;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,12 +29,32 @@ import com.yang.common.utils.R;
  * @email yangjian2628168@163.com
  * @date 2021-10-30 18:57:32
  */
+@RefreshScope
 @RestController
 @RequestMapping("coupon/coupon")
 public class CouponController {
     @Autowired
     private CouponService couponService;
 
+
+    @Value("${coupon.user.name}")
+    private String name;
+    @Value("${coupon.user.age}")
+    private Integer age;
+
+    @RequestMapping("/test")
+    public R test(){
+
+        return Objects.requireNonNull(R.ok().put("name", name)).put("age",age);
+    }
+
+    /**
+     * 功能描述: 测试通过open-feign用户获取优惠券业务
+     *
+     * @param
+     * @date 2021-10-30 21:00
+     * @return
+     */
     @RequestMapping("/member/list")
     public R membercoupon(){
         CouponEntity coupon = new CouponEntity();
